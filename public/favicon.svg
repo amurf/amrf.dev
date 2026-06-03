@@ -8,18 +8,19 @@
         --accent: #B0B3D6;
       }
     }
-    .stem {
-      stroke: var(--accent);
-      stroke-width: 3;
-      stroke-linecap: round;
-    }
-    .bowl {
+    .geom-char {
       fill: none;
       stroke: var(--accent);
-      stroke-width: 3;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
   </style>
-  <!-- Minimalist geometric 'a' representing Ash / amrf.dev -->
-  <circle cx="15.5" cy="17" r="5" class="bowl" />
-  <line x1="20.5" y1="12" x2="20.5" y2="22" class="stem" />
+  <!-- Minimalist geometric 'am' representing Ashley Murphy / amrf.dev -->
+  <!-- Letter 'a' -->
+  <circle cx="9.5" cy="18" r="4.5" class="geom-char" />
+  <line x1="14" y1="13.5" x2="14" y2="22.5" class="geom-char" />
+  
+  <!-- Letter 'm' -->
+  <path d="M18,22.5 V15.5 A2.5,2.5 0 0,1 23,15.5 V22.5 M23,15.5 A2.5,2.5 0 0,1 28,15.5 V22.5" class="geom-char" />
 </svg>
