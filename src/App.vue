@@ -1,11 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 // --- Profile & Link Constants ---
 const kofiProfileUrl = ref('https://ko-fi.com/amurf') 
 const githubUrl = ref('https://github.com/amurf')
 const linkedinUrl = ref('https://www.linkedin.com/in/ashmurf/')
 const contactEmail = ref('self@amrf.dev')
+
+// --- Toggle Ko-Fi Button ---
+// Change to true to show the floating Ko-Fi button by default.
+// You can also preview/override it by adding '?kofi=true' or '?kofi=false' to the URL.
+const showKofi = ref(false)
+
+onMounted(() => {
+  const params = new URLSearchParams(window.location.search)
+  if (params.has('kofi')) {
+    showKofi.value = params.get('kofi') === 'true'
+  }
+})
 </script>
 
 <template>
@@ -188,7 +200,7 @@ const contactEmail = ref('self@amrf.dev')
 
 
     <!-- Floating Ko-Fi Support Button -->
-    <div class="kofi-floating">
+    <div v-if="showKofi" class="kofi-floating">
       <a :href="kofiProfileUrl" target="_blank" rel="noopener noreferrer" class="kofi-btn">
         <!-- Coffee Cup Stroke SVG Icon -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
