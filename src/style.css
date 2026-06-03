@@ -9,16 +9,22 @@
   --text-secondary: #706C68;
   --border-color: rgba(44, 42, 41, 0.08);
   --border-focus: rgba(44, 42, 41, 0.2);
-  --accent-color: #8284A6; /* Muted Nordic Lavender */
-  --accent-hover: #6A6C8C;
-  --accent-light: rgba(130, 132, 166, 0.06);
+  --accent-color: #675796; /* Heather Amethyst */
+  --accent-hover: #4F4175;
+  --accent-light: rgba(103, 87, 150, 0.06);
   --kofi-bg: #2C2A29;
   --kofi-text: #FAF8F5;
+  --accent-shadow: rgba(103, 87, 150, 0.3);
 
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 24px;
   --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Shared Theme Tokens */
+  --overlay-bg: rgba(250, 248, 245, 0.94);
+  --card-shadow: 0 4px 20px rgba(44, 42, 41, 0.02);
+  --card-shadow-hover: 0 12px 30px rgba(44, 42, 41, 0.05);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +41,11 @@
     --accent-light: rgba(176, 179, 214, 0.08);
     --kofi-bg: #EBE9E4;
     --kofi-text: #141413;
+    --accent-shadow: rgba(176, 179, 214, 0.3);
+
+    --overlay-bg: rgba(20, 20, 19, 0.94);
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    --card-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.45);
   }
 }
 
@@ -103,9 +114,21 @@ section {
   margin-bottom: 100px;
 }
 
-/* Hero Elements */
+/* Hero & Section Entrance Animations */
 .hero {
   margin-bottom: 100px;
+  opacity: 0;
+  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+#projects {
+  opacity: 0;
+  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+#experience {
+  opacity: 0;
+  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
 }
 
 .tagline {
@@ -123,8 +146,8 @@ section {
   gap: 12px;
 }
 
-/* Minimalist Button Styling */
-.btn-brutalist {
+/* Minimalist Pill Button Styling */
+.btn-pill {
   font-family: var(--font-sans);
   font-size: 0.85rem;
   font-weight: 500;
@@ -143,22 +166,22 @@ section {
   user-select: none;
 }
 
-.btn-brutalist:hover {
+.btn-pill:hover {
   transform: translateY(-1px);
   background-color: var(--text-primary);
   color: var(--bg-color);
   border-color: var(--text-primary);
 }
 
-.btn-brutalist:active {
+.btn-pill:active {
   transform: translateY(0);
 }
 
-.btn-brutalist svg {
+.btn-pill svg {
   transition: transform 0.2s ease;
 }
 
-.btn-brutalist:hover svg {
+.btn-pill:hover svg {
   transform: scale(1.05);
 }
 
@@ -181,7 +204,7 @@ section {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 20px rgba(44, 42, 41, 0.02);
+  box-shadow: var(--card-shadow);
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -193,7 +216,7 @@ section {
 
 .app-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(44, 42, 41, 0.05);
+  box-shadow: var(--card-shadow-hover);
   border-color: var(--border-focus);
 }
 
@@ -228,8 +251,8 @@ section {
   flex-grow: 1;
 }
 
-/* App CSS Simulator Frame */
-.app-simulator {
+/* Project Image Showcase */
+.project-image-container {
   background-color: var(--bg-color);
   border: 1px solid var(--border-color);
   height: 180px;
@@ -243,151 +266,31 @@ section {
   transition: var(--transition);
 }
 
-/* Specific Interactive Graphics in CSS */
-/* Alphabetical simulator style */
-.sim-alphabetical {
+.project-image {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.app-card:hover .project-image {
+  transform: scale(1.03);
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
-  padding: 24px;
-  align-items: center;
+  margin-top: auto;
 }
 
-.sim-tile {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  font-size: 1.25rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
+.btn-store {
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  border-radius: 40px;
   justify-content: center;
-  aspect-ratio: 1;
-  transition: var(--transition);
-  user-select: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-}
-
-.sim-tile:hover {
-  border-color: var(--border-focus);
-  transform: translateY(-2px);
-}
-
-.sim-tile.active {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  color: var(--bg-color);
-  box-shadow: 0 4px 12px rgba(120, 130, 119, 0.3);
-}
-
-/* Success Overlay inside simulator */
-.sim-success-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(250, 248, 245, 0.94);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md);
-  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(4px);
-  padding: 16px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .sim-success-overlay {
-    background: rgba(20, 20, 19, 0.94);
-  }
-}
-
-.sim-success-title {
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 1.15rem;
-  letter-spacing: -0.01em;
-  margin-bottom: 12px;
-}
-
-/* Calculator game simulator */
-.sim-calculator {
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sim-calc-screen {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  font-size: 0.85rem;
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
-}
-
-.sim-calc-target {
-  color: var(--accent-color);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  text-align: left;
-}
-
-.sim-calc-value {
-  font-family: var(--font-mono);
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.sim-calc-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.sim-calc-btn {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-align: center;
-  padding: 8px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.sim-calc-btn:hover {
-  border-color: var(--border-focus);
-  background-color: var(--accent-light);
-}
-
-.sim-calc-btn.accent {
-  background-color: var(--accent-light);
-  border-color: var(--accent-color);
-  color: var(--accent-color);
-}
-
-.sim-calc-btn.accent:hover {
-  background-color: var(--accent-color);
-  color: var(--bg-color);
+  flex: 1;
+  min-width: 120px;
 }
 
 /* Experience List */
@@ -401,7 +304,16 @@ section {
   border-left: 1px solid var(--border-color);
   padding-left: 32px;
   position: relative;
-  transition: var(--transition);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), var(--transition);
+}
+
+.exp-list:hover .exp-item:not(:hover) {
+  opacity: 0.5;
+}
+
+.exp-item:hover,
+.exp-item.active {
+  border-left-color: var(--accent-color);
 }
 
 .exp-item::before {
@@ -417,10 +329,11 @@ section {
   transition: var(--transition);
 }
 
+.exp-item:hover::before,
 .exp-item.active::before {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
-  box-shadow: 0 0 8px rgba(120, 130, 119, 0.4);
+  box-shadow: 0 0 8px var(--accent-shadow);
 }
 
 .exp-header {
@@ -525,27 +438,6 @@ section {
   fill: currentColor;
 }
 
-/* Footer Section */
-footer {
-  margin-top: 120px;
-  border-top: 1px solid var(--border-color);
-  padding-top: 40px;
-  text-align: center;
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-}
-
-footer a {
-  color: var(--text-primary);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  transition: var(--transition);
-}
-
-footer a:hover {
-  color: var(--accent-color);
-}
 
 /* Animations */
 @keyframes fadeIn {
@@ -558,3 +450,15 @@ footer a:hover {
     transform: scale(1);
   }
 }
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
