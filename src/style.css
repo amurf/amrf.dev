@@ -301,22 +301,35 @@ section {
 }
 
 .exp-item {
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid transparent;
   padding-left: 32px;
   position: relative;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), var(--transition);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), var(--transition);
 }
 
 .exp-list:hover .exp-item:not(:hover) {
   opacity: 0.5;
 }
 
-.exp-item:hover,
-.exp-item.active {
-  border-left-color: var(--accent-color);
+/* Timeline Line using ::before (painted below dot) */
+.exp-item::before {
+  content: '';
+  position: absolute;
+  left: -1px; /* Align perfectly with the border area */
+  top: 12px;  /* Starts at the center of the dot */
+  bottom: 0;   /* Extends to the bottom of the item */
+  width: 1px;
+  background-color: var(--border-color);
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.exp-item::before {
+.exp-item:hover::before,
+.exp-item.active::before {
+  background-color: var(--accent-color);
+}
+
+/* Timeline Dot using ::after (painted above line) */
+.exp-item::after {
   content: '';
   position: absolute;
   left: -5px;
@@ -327,10 +340,11 @@ section {
   border: 1px solid var(--text-secondary);
   border-radius: 50%;
   transition: var(--transition);
+  z-index: 1;
 }
 
-.exp-item:hover::before,
-.exp-item.active::before {
+.exp-item:hover::after,
+.exp-item.active::after {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
   box-shadow: 0 0 8px var(--accent-shadow);
